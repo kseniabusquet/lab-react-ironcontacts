@@ -9,7 +9,7 @@ function App() {
 
 function ContactsList() {
 
-  const firstFive = [contacts[0], contacts[1], contacts[2], contacts[3], contacts[4]]
+  const firstFive = [contacts[0], contacts[1], contacts[2], contacts[3], contacts[4], contacts[5], contacts[6], contacts[7], contacts[8], contacts[9] ]
  
   return (
     <div className="list">
@@ -21,6 +21,8 @@ function ContactsList() {
           <th>Picture</th>
           <th>Name</th>
           <th>Popularity</th>
+          <th>Won Oscar</th>
+          <th>Won Emmy</th>
         </tr>
         </thead>
 
@@ -30,7 +32,9 @@ function ContactsList() {
             <tr>
               <td><img src = {contact.pictureUrl} alt = "contact"/></td>
               <td>{contact.name}</td>
-              <td>{Math.round(contact.popularity*100)/100}</td>
+              <td>{contact.popularity.toFixed(2)}</td>
+              {contact.wonOscar === true && <td>🏆</td>}
+              {contact.wonEmmy === true && <td>🏆</td>}
             </tr>
             </tbody>
         );
