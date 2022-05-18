@@ -2,26 +2,35 @@ import './App.css';
 import contacts from "./contacts.json";
 import {useState} from "react"; 
 
-
-
 function App() {
   const [contact, setContact] = useState(contacts.slice(0, 5));
-  const remainingContacts = contacts.slice(contact.length, contacts.length)
-  
-  const getRandomContact = () => {
-    const random = Math.floor(Math.random() * remainingContacts.length);
-    const randomContact = remainingContacts[random];
-    remainingContacts.splice(random, 1)
-    return randomContact;    
+  const [remainingContact, setRemainingContact] = useState(contacts.slice(5, contacts.length))
+
+  const getRandomContact = (arr) => {
+    const random = Math.floor(Math.random() * arr.length);
+    const randomContact = arr[random];
+    return [randomContact, random];    
   }
-  
+
   const updateContacts = () => {
     let newList = []
     contact.forEach(el => newList.push(el))
-    newList.unshift(getRandomContact())
+    let randomData = getRandomContact(remainingContact)
+    newList.unshift(randomData[0])
     setContact(newList)
-    console.log(contact)
-    console.log(remainingContacts)
+    console.log("Element removed: ", randomData[0])
+    updateRemainingContacts(randomData[0], randomData[1])
+
+
+    console.log("Contacts: ", contact)
+    console.log("Remaining contacts: ", remainingContact)
+  }
+  
+  const updateRemainingContacts = (element, index) => {
+    let newRemainingList = []
+    remainingContact.forEach(el => newRemainingList.push(el))
+    newRemainingList.splice(index, 1)
+    setRemainingContact(newRemainingList)
   }
 
   return <div className="App">
