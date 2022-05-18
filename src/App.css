@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  width: 390px;
+  margin: 0 auto;
 }
 
 table {
@@ -8,9 +10,4 @@ table {
 
 td > img {
   width: 100px;
-}
-
-.list {
-  width: 390px;
-  margin: 0 auto;
 }
