@@ -2,16 +2,26 @@ import './App.css';
 import contacts from "./contacts.json";
 import {useState} from "react"; 
 
+
+
 function App() {
   const [contact, setContact] = useState(contacts.slice(0, 5));
   const remainingContacts = contacts.slice(contact.length, contacts.length)
   
-  const updateContacts = currentList => {
+  const getRandomContact = () => {
     const random = Math.floor(Math.random() * remainingContacts.length);
     const randomContact = remainingContacts[random];
-    contact.push(randomContact)
-    setContact(contact)
     remainingContacts.splice(random, 1)
+    return randomContact;    
+  }
+  
+  const updateContacts = () => {
+    let newList = []
+    contact.forEach(el => newList.push(el))
+    newList.unshift(getRandomContact())
+    setContact(newList)
+    console.log(contact)
+    console.log(remainingContacts)
   }
 
   return <div className="App">
@@ -44,5 +54,6 @@ function App() {
       </table>
     </div>
 }
+
 
 export default App;
