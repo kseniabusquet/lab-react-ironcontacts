@@ -1,20 +1,22 @@
 import './App.css';
 import contacts from "./contacts.json";
+import {useState} from "react"; 
 
 function App() {
+  const [contact, setContact] = useState(contacts.slice(0, 5));
+  const remainingContacts = contacts.slice(contact.length, contacts.length)
+  
+  const updateContacts = currentList => {
+    const random = Math.floor(Math.random() * remainingContacts.length);
+    const randomContact = remainingContacts[random];
+    contact.push(randomContact)
+    setContact(contact)
+    remainingContacts.splice(random, 1)
+  }
+
   return <div className="App">
-    <ContactsList/>
-  </div>;
-}
-
-function ContactsList() {
-
-  const firstFive = [contacts[0], contacts[1], contacts[2], contacts[3], contacts[4], contacts[5], contacts[6], contacts[7], contacts[8], contacts[9] ]
- 
-  return (
-    <div className="list">
       <h2>IronContacts</h2>
-
+      <button onClick = {updateContacts}>Add random contact</button>
       <table>
         <thead>
         <tr>
@@ -26,7 +28,7 @@ function ContactsList() {
         </tr>
         </thead>
 
-      {firstFive.map(contact => {
+      {contact.map(contact => {
         return (
           <tbody key = {contact.id}>
             <tr>
@@ -39,10 +41,8 @@ function ContactsList() {
             </tbody>
         );
       })}
-      
       </table>
     </div>
-  );
 }
 
 export default App;
