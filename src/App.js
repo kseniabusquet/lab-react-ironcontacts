@@ -31,8 +31,8 @@ function App() {
   const sortByName = () => {
     const newArray = [...contact];
     newArray.sort(function(a, b) {
-      const nameA = a.name.toUpperCase(); // ignore upper and lowercase
-      const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+      const nameA = a.name.toUpperCase(); 
+      const nameB = b.name.toUpperCase(); 
       if (nameA < nameB) {
         return -1;
       }
@@ -52,6 +52,13 @@ function App() {
     setContact(newArray)
   }
 
+  const removeContact = (idContact) => {
+    const filteredContacts = contact.filter(contact => {
+      return contact.id !== idContact
+    })
+    setContact(filteredContacts)
+  }
+
   return <div className="App">
       <h2>IronContacts</h2>
       {remainingContact.length ? 
@@ -67,6 +74,7 @@ function App() {
           <th>Popularity</th>
           <th>Won Oscar</th>
           <th>Won Emmy</th>
+          <th>Actions</th>
         </tr>
         </thead>
 
@@ -77,8 +85,9 @@ function App() {
               <td><img src = {contact.pictureUrl} alt = "contact"/></td>
               <td>{contact.name}</td>
               <td>{contact.popularity.toFixed(2)}</td>
-              {contact.wonOscar === true && <td>🏆</td>}
-              {contact.wonEmmy === true && <td>🏆</td>}
+              {contact.wonOscar ? <td>🏆</td> : <td></td>}
+              {contact.wonEmmy ? <td>🏆</td> : <td></td>}
+              <td><button onClick={() => removeContact(contact.id)}>Delete</button></td>
             </tr>
             </tbody>
         );
