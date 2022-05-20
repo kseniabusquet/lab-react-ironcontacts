@@ -63,9 +63,9 @@ function App() {
       <h2>IronContacts</h2>
       {remainingContact.length ? 
       <div> 
-      <button onClick = {updateContacts}>Add random contact</button>
-      <button onClick = {sortByPopularity}>Sort by popularity</button>
-      <button onClick = {sortByName}>Sort by name</button>
+      <button className = "main-buttons" onClick = {updateContacts}>Add random contact</button>
+      <button className = "main-buttons" onClick = {sortByPopularity}>Sort by popularity</button>
+      <button className = "main-buttons" onClick = {sortByName}>Sort by name</button>
       <table>
         <thead>
         <tr>
@@ -82,12 +82,12 @@ function App() {
         return (
           <tbody key = {contact.id}>
             <tr>
-              <td><img src = {contact.pictureUrl} alt = "contact"/></td>
+              <td><div className = "rounded"><img src = {contact.pictureUrl} alt = "contact"/></div></td>
               <td>{contact.name}</td>
               <td>{contact.popularity.toFixed(2)}</td>
               {contact.wonOscar ? <td>🏆</td> : <td></td>}
               {contact.wonEmmy ? <td>🏆</td> : <td></td>}
-              <td><button onClick={() => removeContact(contact.id)}>Delete</button></td>
+              <td><button className = "main-buttons remove-button" onClick={() => removeContact(contact.id)}>Delete</button></td>
             </tr>
             </tbody>
         );
