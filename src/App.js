@@ -18,12 +18,7 @@ function App() {
     let randomData = getRandomContact(remainingContact)
     newList.unshift(randomData[0])
     setContact(newList)
-    console.log("Element removed: ", randomData[0])
     updateRemainingContacts(randomData[0], randomData[1])
-
-
-    console.log("Contacts: ", contact)
-    console.log("Remaining contacts: ", remainingContact)
   }
   
   const updateRemainingContacts = (element, index) => {
@@ -33,9 +28,37 @@ function App() {
     setRemainingContact(newRemainingList)
   }
 
+  const sortByName = () => {
+    const newArray = [...contact];
+    newArray.sort(function(a, b) {
+      const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+      const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+        return 0;
+    });
+    setContact(newArray)
+  }
+
+  const sortByPopularity = () => {
+    const newArray = [...contact];
+    newArray.sort(function (a, b) {
+      return a.popularity - b.popularity;
+    });
+    setContact(newArray)
+  }
+
   return <div className="App">
       <h2>IronContacts</h2>
+      {remainingContact.length ? 
+      <div> 
       <button onClick = {updateContacts}>Add random contact</button>
+      <button onClick = {sortByPopularity}>Sort by popularity</button>
+      <button onClick = {sortByName}>Sort by name</button>
       <table>
         <thead>
         <tr>
@@ -61,8 +84,9 @@ function App() {
         );
       })}
       </table>
+      </div> : <div>No more contacts to add </div>
+      }
     </div>
 }
-
 
 export default App;
